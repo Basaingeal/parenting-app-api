@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <RootNamespace>parenting_app_api</RootNamespace>
+    <RootNamespace>Nursry.Web</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

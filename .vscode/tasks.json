@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/parenting-app-api.csproj"
+                "${workspaceFolder}/src/Nursry.Web/Nursry.Web.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
