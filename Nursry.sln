@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nursry.Web", "src\Nursry.Web\Nursry.Web.csproj", "{DD56243C-3726-4D3C-8510-282164B4A287}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nursry.Core", "src\Nursry.Core\Nursry.Core\Nursry.Core.csproj", "{C68A17D8-CE74-4685-9332-7FBC364AE54F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nursry.Infrastructure", "src\Nursry.Infrastructure\Nursry.Infrastructure\Nursry.Infrastructure.csproj", "{393B416C-C87C-4A1F-AD62-844B8741E055}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{DD56243C-3726-4D3C-8510-282164B4A287}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD56243C-3726-4D3C-8510-282164B4A287}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD56243C-3726-4D3C-8510-282164B4A287}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C68A17D8-CE74-4685-9332-7FBC364AE54F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C68A17D8-CE74-4685-9332-7FBC364AE54F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C68A17D8-CE74-4685-9332-7FBC364AE54F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C68A17D8-CE74-4685-9332-7FBC364AE54F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{393B416C-C87C-4A1F-AD62-844B8741E055}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{393B416C-C87C-4A1F-AD62-844B8741E055}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{393B416C-C87C-4A1F-AD62-844B8741E055}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{393B416C-C87C-4A1F-AD62-844B8741E055}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
