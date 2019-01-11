@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Nursry.Core
 {
-    public class Activity : BaseEntity
+    public class Activity : UserOwnedEntity
     {
         public string Name { get; set; }
         public DateTime TimeStarted { get; set; }
