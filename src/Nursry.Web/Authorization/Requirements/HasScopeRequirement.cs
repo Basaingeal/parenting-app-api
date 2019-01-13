@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace parenting_app_api.Authorization.Requirements
+namespace Nursry.Web.Authorization.Requirements
 {
     public class HasScopeRequirement : IAuthorizationRequirement
     {

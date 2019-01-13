@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using parenting_app_api.Authorization.Requirements;
+using Nursry.Web.Authorization.Requirements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace parenting_app_api.Authorization.Handlers
+namespace Nursry.Web.Authorization.Handlers
 {
     public class HasScopeHandler : AuthorizationHandler<HasScopeRequirement>
     {
