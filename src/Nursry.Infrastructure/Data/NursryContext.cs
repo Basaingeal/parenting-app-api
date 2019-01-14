@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Nursry.Core;
 using Nursry.Core.Entities;
+using Nursry.Core.SharedKernel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Nursry.Infrastructure.Data
@@ -27,6 +30,15 @@ namespace Nursry.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes()
+                .Where(e => typeof(BaseEntity).IsAssignableFrom(e.ClrType)))
+            {
+                modelBuilder.Entity(entityType.ClrType)
+                    .Property(nameof(BaseEntity.Id))
+                    .ValueGeneratedOnAdd()
+                    .HasDefaultValueSql("newsequentialid()");
+            }
+
             Seed(modelBuilder);
         }
 
