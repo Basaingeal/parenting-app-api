@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Nursry.Core.Interfaces;
+using Nursry.Core.Entities;
+using Nursry.Core.Specifications;
+using Nursry.Core.SharedKernel;
 
 namespace Nursry.Web.Controllers
 {
@@ -10,6 +14,15 @@ namespace Nursry.Web.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly IAsyncRepository<Child> childRepo;
+        private readonly ILogRepository logRepo;
+
+        public ValuesController(IAsyncRepository<Child> childRepository, ILogRepository logRepository)
+        {
+            this.childRepo = childRepository;
+            this.logRepo = logRepository;
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -19,9 +32,9 @@ namespace Nursry.Web.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<ActionResult<string>> Get(Guid id)
         {
-            return "value";
+            return "Hello world!";
         }
 
         // POST api/values
