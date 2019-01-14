@@ -10,8 +10,8 @@ using Nursry.Infrastructure.Data;
 namespace Nursry.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(NursryContext))]
-    [Migration("20190113222723_SeedPicklists")]
-    partial class SeedPicklists
+    [Migration("20190114203728_InitialModel")]
+    partial class InitialModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,8 @@ namespace Nursry.Infrastructure.Data.Migrations
             modelBuilder.Entity("Nursry.Core.Entities.BottleContent", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<string>("Content");
 
@@ -35,12 +36,12 @@ namespace Nursry.Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8c0544b5-3fdd-4f48-ab4e-a2820196f5d8"),
+                            Id = new Guid("19821a66-51e1-4b78-b42a-302ef8f58f6d"),
                             Content = "Formula"
                         },
                         new
                         {
-                            Id = new Guid("79ea25f4-7b1f-48e8-8fdc-78894b871083"),
+                            Id = new Guid("544b07c6-75a7-4b2c-ad08-091118ab7e90"),
                             Content = "Breast milk"
                         });
                 });
@@ -48,7 +49,8 @@ namespace Nursry.Infrastructure.Data.Migrations
             modelBuilder.Entity("Nursry.Core.Entities.Child", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<DateTime>("DateOfBirth");
 
@@ -72,7 +74,8 @@ namespace Nursry.Infrastructure.Data.Migrations
             modelBuilder.Entity("Nursry.Core.Entities.DiaperType", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<string>("Title");
 
@@ -83,17 +86,17 @@ namespace Nursry.Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1206a261-8ea0-4d88-b427-e8c41057fb5f"),
+                            Id = new Guid("de69d0a4-d993-4b94-85f5-70a12b4a4029"),
                             Title = "Pee"
                         },
                         new
                         {
-                            Id = new Guid("a3a499c5-b271-4540-a913-fb1cdbf542a3"),
+                            Id = new Guid("2cbb13a1-954e-4236-84b8-d93df5ba3594"),
                             Title = "Poo"
                         },
                         new
                         {
-                            Id = new Guid("79640e24-1a12-4121-99ab-943f55fcdb90"),
+                            Id = new Guid("2c2cee8e-9476-4616-b1a4-7fe032421e49"),
                             Title = "Both"
                         });
                 });
@@ -101,7 +104,8 @@ namespace Nursry.Infrastructure.Data.Migrations
             modelBuilder.Entity("Nursry.Core.Entities.FeedingType", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<string>("Type");
 
@@ -112,22 +116,22 @@ namespace Nursry.Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9384fdce-898d-4c65-8007-014bdae60487"),
+                            Id = new Guid("fb3aaa66-326d-4b30-9687-27379f63640d"),
                             Type = "Left Breast"
                         },
                         new
                         {
-                            Id = new Guid("2f9622c6-128d-43cd-ba3b-3c685e905f98"),
+                            Id = new Guid("412058ab-c92b-45a6-ba4e-fc8b7a0ed895"),
                             Type = "Right Breast"
                         },
                         new
                         {
-                            Id = new Guid("2588236e-f2f7-4a39-8a16-348a15b94041"),
+                            Id = new Guid("935726c8-f95c-4c19-add5-b1073ce4bf81"),
                             Type = "Bottle"
                         },
                         new
                         {
-                            Id = new Guid("22fc12b5-92ef-4b88-b5aa-7d50c6523ebb"),
+                            Id = new Guid("961f9ea0-67ac-43bd-bf63-3969080982b8"),
                             Type = "Meal"
                         });
                 });
@@ -135,7 +139,8 @@ namespace Nursry.Infrastructure.Data.Migrations
             modelBuilder.Entity("Nursry.Core.Entities.Gender", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<string>("Title");
 
@@ -146,12 +151,12 @@ namespace Nursry.Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("246f4ecf-0268-4a69-a14f-93221658b29c"),
+                            Id = new Guid("26ec5151-bdc8-447c-b916-2c56ff2d77cc"),
                             Title = "Male"
                         },
                         new
                         {
-                            Id = new Guid("6b852f22-9419-4125-8e5a-6914049bed85"),
+                            Id = new Guid("ca588f41-266b-4895-b5d1-520efcc5fd1d"),
                             Title = "Female"
                         });
                 });
@@ -159,7 +164,8 @@ namespace Nursry.Infrastructure.Data.Migrations
             modelBuilder.Entity("Nursry.Core.Entities.Log", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<Guid?>("ChildId");
 

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GraphiQl;
+using GraphQL;
+using GraphQL.Types;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,8 +15,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Nursry.Core.Interfaces;
 using Nursry.Infrastructure.Data;
+using Nursry.Infrastructure.Data.Repositories;
 using Nursry.Web.Authorization.Requirements;
+using Nursry.Web.GraphQL;
 
 namespace Nursry.Web
 {
@@ -51,6 +57,15 @@ namespace Nursry.Web
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
+            services.AddTransient<IChildRepository, ChildRepository>();
+            services.AddSingleton<ChildrenQuery>();
+            services.AddSingleton<ChildType>();
+            services.AddSingleton<FeedingLogType>();
+            services.AddSingleton<BottleFeedingLogType>();
+            var sp = services.BuildServiceProvider();
+            services.AddSingleton<ISchema>(new ChildrenSchema(new FuncDependencyResolver(type => sp.GetService(type))));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +86,8 @@ namespace Nursry.Web
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
+
+            app.UseGraphiQl();
 
             app.UseMvc();
         }

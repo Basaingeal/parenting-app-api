@@ -11,7 +11,7 @@ namespace Nursry.Infrastructure.Data.Migrations
                 name: "BottleContents",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "newsequentialid()"),
                     Content = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -23,7 +23,7 @@ namespace Nursry.Infrastructure.Data.Migrations
                 name: "DiaperTypes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "newsequentialid()"),
                     Title = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -35,7 +35,7 @@ namespace Nursry.Infrastructure.Data.Migrations
                 name: "FeedingTypes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "newsequentialid()"),
                     Type = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -47,7 +47,7 @@ namespace Nursry.Infrastructure.Data.Migrations
                 name: "Genders",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "newsequentialid()"),
                     Title = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -59,7 +59,7 @@ namespace Nursry.Infrastructure.Data.Migrations
                 name: "Children",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "newsequentialid()"),
                     UserId = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
@@ -82,7 +82,7 @@ namespace Nursry.Infrastructure.Data.Migrations
                 name: "Log",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "newsequentialid()"),
                     UserId = table.Column<string>(nullable: true),
                     ChildId = table.Column<Guid>(nullable: true),
                     Discriminator = table.Column<string>(nullable: false),
@@ -91,11 +91,19 @@ namespace Nursry.Infrastructure.Data.Migrations
                     StartTime = table.Column<DateTime>(nullable: true),
                     EndTime = table.Column<DateTime>(nullable: true),
                     Details = table.Column<string>(nullable: true),
-                    FeedingTypeId = table.Column<Guid>(nullable: true)
+                    FeedingTypeId = table.Column<Guid>(nullable: true),
+                    Amount = table.Column<decimal>(nullable: true),
+                    ContentsId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Log", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Log_BottleContents_ContentsId",
+                        column: x => x.ContentsId,
+                        principalTable: "BottleContents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Log_DiaperTypes_DiaperTypeId",
                         column: x => x.DiaperTypeId,
@@ -116,10 +124,54 @@ namespace Nursry.Infrastructure.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                table: "BottleContents",
+                columns: new[] { "Id", "Content" },
+                values: new object[,]
+                {
+                    { new Guid("19821a66-51e1-4b78-b42a-302ef8f58f6d"), "Formula" },
+                    { new Guid("544b07c6-75a7-4b2c-ad08-091118ab7e90"), "Breast milk" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DiaperTypes",
+                columns: new[] { "Id", "Title" },
+                values: new object[,]
+                {
+                    { new Guid("de69d0a4-d993-4b94-85f5-70a12b4a4029"), "Pee" },
+                    { new Guid("2cbb13a1-954e-4236-84b8-d93df5ba3594"), "Poo" },
+                    { new Guid("2c2cee8e-9476-4616-b1a4-7fe032421e49"), "Both" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "FeedingTypes",
+                columns: new[] { "Id", "Type" },
+                values: new object[,]
+                {
+                    { new Guid("fb3aaa66-326d-4b30-9687-27379f63640d"), "Left Breast" },
+                    { new Guid("412058ab-c92b-45a6-ba4e-fc8b7a0ed895"), "Right Breast" },
+                    { new Guid("935726c8-f95c-4c19-add5-b1073ce4bf81"), "Bottle" },
+                    { new Guid("961f9ea0-67ac-43bd-bf63-3969080982b8"), "Meal" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Genders",
+                columns: new[] { "Id", "Title" },
+                values: new object[,]
+                {
+                    { new Guid("26ec5151-bdc8-447c-b916-2c56ff2d77cc"), "Male" },
+                    { new Guid("ca588f41-266b-4895-b5d1-520efcc5fd1d"), "Female" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Children_GenderId",
                 table: "Children",
                 column: "GenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Log_ContentsId",
+                table: "Log",
+                column: "ContentsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Log_DiaperTypeId",
@@ -140,10 +192,10 @@ namespace Nursry.Infrastructure.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BottleContents");
+                name: "Log");
 
             migrationBuilder.DropTable(
-                name: "Log");
+                name: "BottleContents");
 
             migrationBuilder.DropTable(
                 name: "DiaperTypes");
