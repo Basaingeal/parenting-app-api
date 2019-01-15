@@ -18,6 +18,10 @@ namespace Nursry.Web.GraphQL.Types
                 "logs",
                 resolve: ctx =>
                 {
+                    if (ctx.Source.Logs?.Count > 0)
+                    {
+                        return ctx.Source.Logs;
+                    }
                     LogsByChildId getChildLogsSpec = new LogsByChildId(ctx.Source.Id);
                     return logRepo.ListAsync(getChildLogsSpec);
                 });
