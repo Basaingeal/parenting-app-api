@@ -2,8 +2,10 @@
 
 namespace Nursry.Core.Entities
 {
-    public class DiaperType : BaseEntity
+    public enum DiaperType
     {
-        public string Title { get; set; }
+        Pee,
+        Poo,
+        Both
     }
 }

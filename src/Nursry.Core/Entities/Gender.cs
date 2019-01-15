@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Nursry.Core.Entities
 {
-    public class Gender : BaseEntity
+    public enum Gender
     {
-        public string Title { get; set; }
+        Male,
+        Female
     }
 }

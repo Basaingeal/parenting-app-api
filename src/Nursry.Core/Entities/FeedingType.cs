@@ -5,8 +5,11 @@ using System.Text;
 
 namespace Nursry.Core.Entities
 {
-    public class FeedingType : BaseEntity
+    public enum FeedingType
     {
-        public string Type { get; set; }
+        LeftBreast,
+        RightBreast,
+        Bottle,
+        Meal
     }
 }

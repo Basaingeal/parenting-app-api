@@ -2,8 +2,9 @@
 
 namespace Nursry.Core.Entities
 {
-    public class BottleContent : BaseEntity
+    public enum BottleContent
     {
-        public string Content { get; set; }
+        Formula,
+        BreastMilk
     }
 }
