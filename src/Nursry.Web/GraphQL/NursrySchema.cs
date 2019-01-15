@@ -1,5 +1,6 @@
 ﻿using GraphQL;
 using GraphQL.Types;
+using Nursry.Web.GraphQL.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace Nursry.Web.GraphQL
             : base(resolver)
         {
             Query = resolver.Resolve<NursryQuery>();
+            RegisterType<FeedingLogType>();
+            RegisterType<DiaperLogType>();
         }
     }
 }
