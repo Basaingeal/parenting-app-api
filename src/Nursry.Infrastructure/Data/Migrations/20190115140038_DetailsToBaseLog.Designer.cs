@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nursry.Infrastructure.Data;
 
 namespace Nursry.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(NursryContext))]
-    partial class NursryContextModelSnapshot : ModelSnapshot
+    [Migration("20190115140038_DetailsToBaseLog")]
+    partial class DetailsToBaseLog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

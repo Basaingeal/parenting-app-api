@@ -1,0 +1,1 @@
+﻿dotnet ef migrations add <MigrationName> --context nursrycontext -p ../Nursry.Infrastructure/Nursry.Infrastructure.csproj -s Nursry.Web.csproj -o Data/Migrations

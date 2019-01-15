@@ -8,7 +8,6 @@ namespace Nursry.Core.Entities
     {
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public string Details { get; set; }
         public FeedingType FeedingType { get; set; }
     }
 }
