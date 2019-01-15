@@ -9,7 +9,7 @@ namespace Nursry.Web.GraphQL.Types
 {
     public class LogInterface : InterfaceGraphType<Log>
     {
-        public LogInterface(FeedingLogType flType, BottleFeedingLogType bflType, DiaperLogType dlType)
+        public LogInterface()
         {
             Name = "Log";
 
@@ -17,23 +17,6 @@ namespace Nursry.Web.GraphQL.Types
             Field(l => l.UserId).Description("The user ID of the owner of the log");
             Field(l => l.Details, nullable: true).Description("Additional details from the creator of the log");
             Field<ChildType>("child");
-
-            ResolveType = obj =>
-            {
-                if (obj is BottleFeedingLog)
-                {
-                    return bflType;
-                }
-                if (obj is FeedingLog)
-                {
-                    return flType;
-                }
-                if (obj is DiaperLog)
-                {
-                    return dlType;
-                }
-                throw new ArgumentOutOfRangeException($"Could not resolve graph type for {obj.GetType().Name}");
-            };
         }
     }
 }

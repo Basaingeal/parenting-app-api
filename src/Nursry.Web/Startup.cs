@@ -37,8 +37,7 @@ namespace Nursry.Web
 
             string conString = Configuration.GetConnectionString("NursryDatabase");
             services.AddDbContext<NursryContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("NursryDatabase")),
-                ServiceLifetime.Singleton);
+                options.UseSqlServer(Configuration.GetConnectionString("NursryDatabase")));
 
             services.AddAuthentication(options =>
             {
@@ -73,12 +72,12 @@ namespace Nursry.Web
             services.AddSingleton<LogInterface>();
             services.AddSingleton<FeedingLogType>();
             services.AddSingleton<DiaperLogType>();
-            services.AddSingleton<BottleFeedingLogType>();
-            services.AddSingleton<FeedingGraphType>();
-            services.AddSingleton<DiaperGraphType>();
-            services.AddSingleton<BottleContentsType>();
             services.AddSingleton<ChildType>();
-            services.AddSingleton<GenderType>();
+
+            services.AddSingleton<BottleContentEnumType>();
+            services.AddSingleton<DiaperTypeEnumType>();
+            services.AddSingleton<FeedingTypeEnumType>();
+            services.AddSingleton<GenderEnumType>();
 
             services.AddSingleton<GuidGraphType>();
 
@@ -98,7 +97,6 @@ namespace Nursry.Web
         {
             services.AddTransient<IChildRepository, ChildRepository>();
             services.AddTransient<ILogRepository, LogRepository>();
-            services.AddTransient<IAsyncRepository<Gender>, EfRepository<Gender>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

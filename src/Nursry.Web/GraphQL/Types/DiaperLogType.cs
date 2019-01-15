@@ -25,7 +25,7 @@ namespace Nursry.Web.GraphQL.Types
             Field<DateTimeGraphType>("timeOfDiaperChange",
                 resolve: ctx => ctx.Source.TimeOfDiaperChange,
                 description: "When the diaper change occured.");
-            Field<DiaperGraphType>("diaperType",
+            Field<DiaperTypeEnumType>("diaperType",
                 resolve: ctx => ctx.Source.DiaperType,
                 description: "The type of diaper change performed.");
 

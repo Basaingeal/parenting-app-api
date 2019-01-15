@@ -24,9 +24,18 @@ namespace Nursry.Web.GraphQL.Types
             Field<DateTimeGraphType>("endTime",
                 resolve: ctx => ctx.Source.EndTime,
                 description: "When the feeding ended.");
-            Field<FeedingGraphType>("feedingType",
+            Field<FeedingTypeEnumType>("feedingType",
                 resolve: ctx => ctx.Source.FeedingType,
                 description: "The type of feeding performed.");
+
+            Field<DecimalGraphType>(
+                "amount",
+                resolve: ctx => ctx.Source.Amount,
+                description: "The amount fed in ml for bottle feedings");
+
+            Field<BottleContentEnumType>("bottleContent",
+                resolve: ctx => ctx.Source.Contents,
+                description: "What was fed in the bottle.");
 
             Interface<LogInterface>();
         }

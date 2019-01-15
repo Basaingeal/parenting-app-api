@@ -11,13 +11,13 @@ namespace Nursry.Web.GraphQL
 {
     public class NursryQuery : ObjectGraphType<object>
     {
-        public NursryQuery(IAsyncRepository<Gender> genderRepo)
+        public NursryQuery()
         {
             Name = "Query";
 
-            Field<ListGraphType<GenderType>>(
+            Field<ListGraphType<GenderEnumType>>(
                 "genders",
-                resolve: _ => genderRepo.ListAllAsync()
+                resolve: _ => Enum.GetValues(typeof(Gender)).Cast<Gender>()
                 );
         }
     }
