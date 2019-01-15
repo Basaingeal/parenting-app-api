@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace Nursry.Web.GraphQL
 {
-    public class ChildrenSchema : Schema
+    public class NursrySchema : Schema
     {
-        public ChildrenSchema(IDependencyResolver resolver) : base(resolver)
+        public NursrySchema(IDependencyResolver resolver)
+            : base(resolver)
         {
-            Query = resolver.Resolve<ChildrenQuery>();
+            Query = resolver.Resolve<NursryQuery>();
         }
     }
 }

@@ -14,10 +14,10 @@ namespace Nursry.Web.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private readonly IAsyncRepository<Child> childRepo;
+        private readonly IChildRepository childRepo;
         private readonly ILogRepository logRepo;
 
-        public ValuesController(IAsyncRepository<Child> childRepository, ILogRepository logRepository)
+        public ValuesController(IChildRepository childRepository, ILogRepository logRepository)
         {
             this.childRepo = childRepository;
             this.logRepo = logRepository;
