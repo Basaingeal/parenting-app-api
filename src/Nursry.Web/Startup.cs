@@ -1,19 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using GraphQL;
+using GraphQL.Http;
+using GraphQL.Server;
+using GraphQL.Server.Ui.Playground;
+using GraphQL.Types;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Nursry.Core.Entities;
+using Nursry.Core.Interfaces;
 using Nursry.Infrastructure.Data;
+using Nursry.Infrastructure.Data.Repositories;
 using Nursry.Web.Authorization.Requirements;
+using Nursry.Web.GraphQL;
+using Nursry.Web.GraphQL.Types;
 
 namespace Nursry.Web
 {
@@ -32,7 +36,8 @@ namespace Nursry.Web
             string domain = $"https://{Configuration["Auth0:Domain"]}";
 
             string conString = Configuration.GetConnectionString("NursryDatabase");
-            services.AddDbContext<NursryContext>(c => c.UseSqlServer(Configuration.GetConnectionString("NursryDatabase")));
+            services.AddDbContext<NursryContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("NursryDatabase")));
 
             services.AddAuthentication(options =>
             {
@@ -51,6 +56,52 @@ namespace Nursry.Web
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            ConfigureRepos(services);
+
+            ConfigureGraphQL(services);
+        }
+
+        private static void ConfigureGraphQL(IServiceCollection services)
+        {
+            //services.AddSingleton<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
+
+            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
+            services.AddSingleton<IDocumentWriter, DocumentWriter>();
+
+            services.AddSingleton<NursryQuery>();
+            services.AddSingleton<LogInterface>();
+            services.AddSingleton<FeedingLogType>();
+            services.AddSingleton<DiaperLogType>();
+            services.AddSingleton<ChildType>();
+
+            services.AddSingleton<BottleContentEnumType>();
+            services.AddSingleton<DiaperTypeEnumType>();
+            services.AddSingleton<FeedingTypeEnumType>();
+            services.AddSingleton<GenderEnumType>();
+
+            services.AddSingleton<GuidGraphType>();
+            services.AddSingleton<EnumerationGraphType<Gender>>();
+            services.AddSingleton<EnumerationGraphType>();
+
+            var sp = services.BuildServiceProvider();
+
+            services.AddSingleton<ISchema>(new NursrySchema(new FuncDependencyResolver(sp.GetService)));
+            //services.AddSingleton<ISchema>(s => new NursrySchema(new FuncDependencyResolver(type => (IGraphType)s.GetRequiredService(type))));
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddGraphQL(_ =>
+            {
+                _.EnableMetrics = true;
+                _.ExposeExceptions = true;
+            })
+            .AddUserContextBuilder(httpContext => new GraphQLUserContext { User = httpContext.User });
+        }
+
+        private static void ConfigureRepos(IServiceCollection services)
+        {
+            services.AddTransient<IChildRepository, ChildRepository>();
+            services.AddTransient<ILogRepository, LogRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +124,15 @@ namespace Nursry.Web
             app.UseAuthentication();
 
             app.UseMvc();
+
+            // add http for Schema at default url /graphql
+            //app.UseGraphQL<ISchema>("/graphql");
+
+            // use graphql-playground at default url /ui/playground
+            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions
+            {
+                Path = "/ui/playground"
+            });
         }
     }
 }

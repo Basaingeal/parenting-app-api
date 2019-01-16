@@ -11,5 +11,6 @@ namespace Nursry.Core.Interfaces
         Task<List<Log>> GetLogsByChildId(Guid childId);
         Task<List<FeedingLog>> GetFeedingLogsByChildId(Guid childId);
         Task<List<DiaperLog>> GetDiaperLogsByChildId(Guid childId);
+        Task<Log> GetByIdWithChildAsync(Guid logId);
     }
 }
