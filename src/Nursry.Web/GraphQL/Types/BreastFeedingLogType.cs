@@ -20,7 +20,7 @@ namespace Nursry.Web.GraphQL.Types
             Field(l => l.Details, nullable: true).Description("Additional details from the creator of the log");
             Field<ChildType>(
                 "child",
-                resolve: ctx => ctx.Source.Child ?? (object)childRepo.GetByIdAsync(ctx.Source.Child.Id),
+                resolve: ctx => ctx.Source.Child ?? (object)childRepo.GetByIdAsync(ctx.Source.ChildId),
                 description: "The child that was fed.");
             Field<DateTimeOffsetGraphType>("startTime",
                 resolve: ctx => ctx.Source.StartTime,

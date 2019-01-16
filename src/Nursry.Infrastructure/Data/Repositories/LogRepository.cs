@@ -26,7 +26,7 @@ namespace Nursry.Infrastructure.Data.Repositories
         {
             return this.nursryContext.DiaperLogs
                 .Include(l => l.Child)
-                .Where(l => l.Child.Id == childId)
+                .Where(l => l.ChildId == childId)
                 .ToListAsync();
         }
 
@@ -34,7 +34,7 @@ namespace Nursry.Infrastructure.Data.Repositories
         {
              return this.nursryContext.Set<FeedingLog>()
                 .Include(l => l.Child)
-                .Where(l => l.Child.Id == childId)
+                .Where(l => l.ChildId == childId)
                 .ToListAsync();
         }
 
@@ -42,7 +42,7 @@ namespace Nursry.Infrastructure.Data.Repositories
         {
             return this.nursryContext.Set<Log>()
                 .Include(l => l.Child)
-                .Where(l => l.Child.Id == childId)
+                .Where(l => l.ChildId == childId)
                 .ToListAsync();
         }
     }

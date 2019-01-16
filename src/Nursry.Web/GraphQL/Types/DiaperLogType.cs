@@ -26,7 +26,7 @@ namespace Nursry.Web.GraphQL.Types
                      {
                          return ctx.Source.Child;
                      }
-                     return childRepo.GetByIdAsync(ctx.Source.Child.Id);
+                     return childRepo.GetByIdAsync(ctx.Source.ChildId);
                  },
                  description: "The child that was fed.");
             Field<DateTimeOffsetGraphType>("timeOfDiaperChange",

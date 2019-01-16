@@ -7,7 +7,6 @@ namespace Nursry.Core.Specifications
         public UserChildrenWithLogsSpecification(string userId) : base(c => c.UserId == userId)
         {
             AddInclude(c => c.Logs);
-            AddInclude(nameof(Child.Gender));
         }
     }
 }

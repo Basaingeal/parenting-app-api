@@ -5,7 +5,7 @@ namespace Nursry.Core.Specifications
 {
     public class LogsByChildId : BaseSpecification<Log>
     {
-        public LogsByChildId(Guid childId) : base(c => c.Child.Id == childId)
+        public LogsByChildId(Guid childId) : base(c => c.ChildId == childId)
         {
         }
     }
