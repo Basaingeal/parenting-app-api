@@ -26,17 +26,14 @@ namespace Nursry.Infrastructure.Data.Repositories
         {
             return this.nursryContext.DiaperLogs
                 .Include(l => l.Child)
-                .Include($"{nameof(Child.Logs)}.{nameof(DiaperType)}")
                 .Where(l => l.Child.Id == childId)
                 .ToListAsync();
         }
 
         public Task<List<FeedingLog>> GetFeedingLogsByChildId(Guid childId)
         {
-            return this.nursryContext.FeedingLogs
+             return this.nursryContext.Set<FeedingLog>()
                 .Include(l => l.Child)
-                .Include($"{nameof(Child.Logs)}.{nameof(FeedingType)}")
-                .Include($"{nameof(Child.Logs)}.{nameof(BottleContent)}")
                 .Where(l => l.Child.Id == childId)
                 .ToListAsync();
         }
@@ -45,9 +42,6 @@ namespace Nursry.Infrastructure.Data.Repositories
         {
             return this.nursryContext.Set<Log>()
                 .Include(l => l.Child)
-                .Include($"{nameof(Child.Logs)}.{nameof(FeedingType)}")
-                .Include($"{nameof(Child.Logs)}.{nameof(BottleContent)}")
-                .Include($"{nameof(Child.Logs)}.{nameof(DiaperType)}")
                 .Where(l => l.Child.Id == childId)
                 .ToListAsync();
         }

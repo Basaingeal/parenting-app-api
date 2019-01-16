@@ -26,7 +26,7 @@ namespace Nursry.Web.GraphQL.Types
                     return await logRepo.ListAsync(getChildLogsSpec);
                 });
 
-            Field<EnumerationGraphType<Gender>>(
+            Field<GenderEnum>(
                 "gender",
                 resolve: ctx => ctx.Source.Gender,
                 description: "The gender of the child");

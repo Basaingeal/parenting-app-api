@@ -14,7 +14,8 @@ namespace Nursry.Infrastructure.Data
 
         public DbSet<Child> Children { get; set; }
 
-        public DbSet<FeedingLog> FeedingLogs { get; set; }
+        public DbSet<BreastFeedingLog> BreastFeedingLogs { get; set; }
+        public DbSet<BottleFeedingLog> BottleFeedingLogs { get; set; }
         public DbSet<DiaperLog> DiaperLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -28,7 +29,7 @@ namespace Nursry.Infrastructure.Data
                     .HasDefaultValueSql("newsequentialid()");
             }
 
-            modelBuilder.Entity<FeedingLog>().Property(fl => fl.Amount).HasColumnType("decimal(8, 5)");
+            modelBuilder.Entity<BottleFeedingLog>().Property(fl => fl.Amount).HasColumnType("decimal(8, 5)");
         }
     }
 }

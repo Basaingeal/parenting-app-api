@@ -1,14 +1,8 @@
-﻿using Nursry.Core.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Nursry.Core.Entities
+﻿namespace Nursry.Core.Entities
 {
     public enum FeedingType
     {
-        LeftBreast,
-        RightBreast,
+        Breast,
         Bottle,
         Meal
     }

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Nursry.Web.GraphQL.Types
 {
-    public class BottleContentEnumType : EnumerationGraphType<BottleContent>
+    public class BottleContentEnum : EnumerationGraphType<BottleContent>
     {
-        public BottleContentEnumType()
+        public BottleContentEnum()
         {
             Name = "BottleContentEnum";
         }

@@ -70,17 +70,20 @@ namespace Nursry.Web
 
             services.AddSingleton<NursryQuery>();
             services.AddSingleton<LogInterface>();
-            services.AddSingleton<FeedingLogType>();
+            services.AddSingleton<BottleFeedingLogType>();
+            services.AddSingleton<BreastFeedingLogType>();
             services.AddSingleton<DiaperLogType>();
             services.AddSingleton<ChildType>();
 
-            services.AddSingleton<BottleContentEnumType>();
+            services.AddSingleton<BottleContentEnum>();
             services.AddSingleton<DiaperTypeEnumType>();
-            services.AddSingleton<FeedingTypeEnumType>();
-            services.AddSingleton<GenderEnumType>();
+            services.AddSingleton<FeedingTypeEnum>();
+            services.AddSingleton<BreastEnum>();
+            services.AddSingleton<GenderEnum>();
 
             services.AddSingleton<GuidGraphType>();
-            services.AddSingleton<EnumerationGraphType<Gender>>();
+            services.AddSingleton<TimeSpanSecondsGraphType>();
+            //services.AddSingleton<EnumerationGraphType<Gender>>();
             services.AddSingleton<EnumerationGraphType>();
 
             var sp = services.BuildServiceProvider();

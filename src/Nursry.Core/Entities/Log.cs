@@ -1,12 +1,11 @@
 ﻿using Nursry.Core.SharedKernel;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nursry.Core.Entities
 {
     public abstract class Log : UserOwnedEntity
     {
+        public Guid ChildId { get; set; }
         public Child Child { get; set; }
         public string Details { get; set; }
     }

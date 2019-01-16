@@ -3,9 +3,9 @@ using Nursry.Core.Entities;
 
 namespace Nursry.Web.GraphQL.Types
 {
-    public class GenderEnumType : EnumerationGraphType<Gender>
+    public class GenderEnum : EnumerationGraphType<Gender>
     {
-        public GenderEnumType()
+        public GenderEnum()
         {
             Name = "GenderEnum";
         }

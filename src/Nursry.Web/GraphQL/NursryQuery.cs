@@ -12,28 +12,29 @@ namespace Nursry.Web.GraphQL
 {
     public class NursryQuery : ObjectGraphType<object>
     {
-        public NursryQuery(/*GraphQLUserContext userContext, IChildRepository childRepo*/)
+        public NursryQuery(IChildRepository childRepo)
         {
             Name = "Query";
 
-            Field<ListGraphType<GenderEnumType>>(
+            Field<ListGraphType<GenderEnum>>(
                 "genders",
                 resolve: _ => Enum.GetValues(typeof(Gender)).Cast<Gender>()
                 );
 
-            Field<ListGraphType<FeedingTypeEnumType>>(
+            Field<ListGraphType<FeedingTypeEnum>>(
                 "feedingTypes",
                 resolve: _ => Enum.GetValues(typeof(FeedingType)).Cast<FeedingType>()
                 );
 
-            //Field<ListGraphType<ChildType>>(
-            //    "children",
-            //    resolve: _ =>
-            //    {
-            //        var childrenByUserId = new UserChildrenWithLogsSpecification(userContext.User.Identity.Name);
-            //        return childRepo.ListAsync(childrenByUserId);
-            //    }
-            //    );
+            Field<ListGraphType<ChildType>>(
+                "children",
+                resolve: ctx =>
+                {
+                    var userContext = ctx.UserContext as GraphQLUserContext;
+                    var childrenByUserId = new UserChildrenWithLogsSpecification(userContext.User.Identity.Name);
+                    return childRepo.ListAsync(childrenByUserId);
+                }
+                );
         }
     }
 }
