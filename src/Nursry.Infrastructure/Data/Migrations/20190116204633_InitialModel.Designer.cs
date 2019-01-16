@@ -10,8 +10,8 @@ using Nursry.Infrastructure.Data;
 namespace Nursry.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(NursryContext))]
-    [Migration("20190116164148_UseDateTimeOffsets")]
-    partial class UseDateTimeOffsets
+    [Migration("20190116204633_InitialModel")]
+    partial class InitialModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
