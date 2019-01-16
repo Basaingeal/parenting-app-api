@@ -1,4 +1,6 @@
-﻿namespace Nursry.Core.Entities
+﻿using Nursry.Core.Enums;
+
+namespace Nursry.Core.Entities
 {
     public class BottleFeedingLog : FeedingLog
     {

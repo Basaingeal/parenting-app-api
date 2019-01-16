@@ -1,13 +1,11 @@
 ﻿using GraphQL.Types;
-using Nursry.Core.Entities;
+using Nursry.Core.Enums;
 using Nursry.Core.Interfaces;
 using Nursry.Core.Specifications;
 using Nursry.Web.GraphQL.Types;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Nursry.Web.GraphQL
 {
@@ -31,9 +29,9 @@ namespace Nursry.Web.GraphQL
                 "children",
                 resolve: ctx =>
                 {
-                    var user = ctx.UserContext as ClaimsPrincipal;
+                    ClaimsPrincipal user = ctx.UserContext as ClaimsPrincipal;
                     string userId = user.FindFirst(ClaimTypes.NameIdentifier).Value;
-                    var childrenByUserId = new UserChildrenWithLogsSpecification(userId);
+                    UserChildrenWithLogsSpecification childrenByUserId = new UserChildrenWithLogsSpecification(userId);
                     return childRepo.ListAsync(childrenByUserId);
                 }
                 );

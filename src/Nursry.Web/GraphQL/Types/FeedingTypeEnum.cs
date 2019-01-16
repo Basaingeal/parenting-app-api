@@ -1,5 +1,5 @@
 ﻿using GraphQL.Types;
-using Nursry.Core.Entities;
+using Nursry.Core.Enums;
 
 namespace Nursry.Web.GraphQL.Types
 {

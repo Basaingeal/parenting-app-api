@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nursry.Core.Enums;
+using System;
 
 namespace Nursry.Core.Entities
 {

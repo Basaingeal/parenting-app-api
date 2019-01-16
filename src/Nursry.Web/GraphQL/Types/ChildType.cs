@@ -14,6 +14,8 @@ namespace Nursry.Web.GraphQL.Types
 
             Field<GuidGraphType>("id", description: "The ID of the child.", resolve: ctx => ctx.Source.Id);
             Field(c => c.UserId).Description("The user ID of the user who has this child");
+            Field(c => c.FirstName);
+            Field(c => c.LastName, nullable: true);
             FieldAsync<ListGraphType<LogInterface>>(
                 "logs",
                 resolve: async ctx =>

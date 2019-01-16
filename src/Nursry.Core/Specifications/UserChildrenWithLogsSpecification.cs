@@ -8,9 +8,6 @@ namespace Nursry.Core.Specifications
         {
             AddInclude(c => c.Logs);
             AddInclude(nameof(Child.Gender));
-            AddInclude($"{nameof(Child.Logs)}.{nameof(FeedingType)}");
-            AddInclude($"{nameof(Child.Logs)}.{nameof(DiaperType)}");
-            AddInclude($"{nameof(Child.Logs)}.{nameof(BottleContent)}");
         }
     }
 }

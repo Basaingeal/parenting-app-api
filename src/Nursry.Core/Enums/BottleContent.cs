@@ -1,4 +1,4 @@
-﻿namespace Nursry.Core.Entities
+﻿namespace Nursry.Core.Enums
 {
     public enum BottleContent
     {

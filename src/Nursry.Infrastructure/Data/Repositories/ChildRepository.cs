@@ -19,9 +19,6 @@ namespace Nursry.Infrastructure.Data.Repositories
             return this.nursryContext.Children
                 .Include(c => c.Logs)
                 .Include(nameof(Child.Gender))
-                .Include($"{nameof(Child.Logs)}.{nameof(FeedingType)}")
-                .Include($"{nameof(Child.Logs)}.{nameof(DiaperType)}")
-                .Include($"{nameof(Child.Logs)}.{nameof(BottleContent)}")
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
     }
