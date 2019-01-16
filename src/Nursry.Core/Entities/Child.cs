@@ -8,7 +8,7 @@ namespace Nursry.Core.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public DateTimeOffset DateOfBirth { get; set; }
         public Gender Gender { get; set; }
         public string ImageUri { get; set; }
         public ICollection<Log> Logs { get; set; }

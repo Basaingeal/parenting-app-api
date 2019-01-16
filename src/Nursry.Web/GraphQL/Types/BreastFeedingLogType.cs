@@ -22,10 +22,10 @@ namespace Nursry.Web.GraphQL.Types
                 "child",
                 resolve: ctx => ctx.Source.Child ?? (object)childRepo.GetByIdAsync(ctx.Source.Child.Id),
                 description: "The child that was fed.");
-            Field<DateTimeGraphType>("startTime",
+            Field<DateTimeOffsetGraphType>("startTime",
                 resolve: ctx => ctx.Source.StartTime,
                 description: "When the feeding started.");
-            Field<DateTimeGraphType>("endTime",
+            Field<DateTimeOffsetGraphType>("endTime",
                 resolve: ctx => ctx.Source.EndTime,
                 description: "When the feeding ended.");
             Field<FeedingTypeEnum>("feedingType",

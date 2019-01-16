@@ -6,6 +6,7 @@ using Nursry.Web.GraphQL.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Nursry.Web.GraphQL
@@ -30,8 +31,9 @@ namespace Nursry.Web.GraphQL
                 "children",
                 resolve: ctx =>
                 {
-                    var userContext = ctx.UserContext as GraphQLUserContext;
-                    var childrenByUserId = new UserChildrenWithLogsSpecification(userContext.User.Identity.Name);
+                    var user = ctx.UserContext as ClaimsPrincipal;
+                    string userId = user.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    var childrenByUserId = new UserChildrenWithLogsSpecification(userId);
                     return childRepo.ListAsync(childrenByUserId);
                 }
                 );

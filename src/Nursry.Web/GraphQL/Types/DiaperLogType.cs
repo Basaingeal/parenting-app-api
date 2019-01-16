@@ -29,7 +29,7 @@ namespace Nursry.Web.GraphQL.Types
                      return childRepo.GetByIdAsync(ctx.Source.Child.Id);
                  },
                  description: "The child that was fed.");
-            Field<DateTimeGraphType>("timeOfDiaperChange",
+            Field<DateTimeOffsetGraphType>("timeOfDiaperChange",
                 resolve: ctx => ctx.Source.TimeOfDiaperChange,
                 description: "When the diaper change occured.");
             Field<DiaperTypeEnumType>("diaperType",

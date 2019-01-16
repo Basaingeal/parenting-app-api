@@ -69,6 +69,7 @@ namespace Nursry.Web
             services.AddSingleton<IDocumentWriter, DocumentWriter>();
 
             services.AddSingleton<NursryQuery>();
+            services.AddSingleton<NursryMutation>();
             services.AddSingleton<LogInterface>();
             services.AddSingleton<BottleFeedingLogType>();
             services.AddSingleton<BreastFeedingLogType>();
@@ -86,6 +87,8 @@ namespace Nursry.Web
             //services.AddSingleton<EnumerationGraphType<Gender>>();
             services.AddSingleton<EnumerationGraphType>();
 
+            services.AddSingleton<ChildInputType>();
+
             var sp = services.BuildServiceProvider();
 
             services.AddSingleton<ISchema>(new NursrySchema(new FuncDependencyResolver(sp.GetService)));
@@ -93,12 +96,11 @@ namespace Nursry.Web
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddGraphQL(_ =>
+            services.AddGraphQL(options =>
             {
-                _.EnableMetrics = true;
-                _.ExposeExceptions = true;
-            })
-            .AddUserContextBuilder(httpContext => new GraphQLUserContext { User = httpContext.User });
+                options.EnableMetrics = true;
+                options.ExposeExceptions = true;
+            });
         }
 
         private static void ConfigureRepos(IServiceCollection services)

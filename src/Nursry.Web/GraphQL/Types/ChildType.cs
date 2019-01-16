@@ -26,6 +26,11 @@ namespace Nursry.Web.GraphQL.Types
                     return await logRepo.ListAsync(getChildLogsSpec);
                 });
 
+            Field<DateTimeOffsetGraphType>(
+                "dateOfBirth",
+                resolve: ctx => ctx.Source.DateOfBirth,
+                description: "The birthday and time of the child");
+
             Field<GenderEnum>(
                 "gender",
                 resolve: ctx => ctx.Source.Gender,

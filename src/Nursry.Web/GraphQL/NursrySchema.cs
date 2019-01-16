@@ -10,6 +10,7 @@ namespace Nursry.Web.GraphQL
             : base(resolver)
         {
             Query = resolver.Resolve<NursryQuery>();
+            Mutation = resolver.Resolve<NursryMutation>();
             RegisterType<BottleFeedingLogType>();
             RegisterType<BreastFeedingLogType>();
             RegisterType<DiaperLogType>();

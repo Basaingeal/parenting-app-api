@@ -1,15 +1,15 @@
 ﻿using GraphQL;
 using GraphQL.Types;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Nursry.Web.GraphQL;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Nursry.Web.Controllers
 {
     [Route("[controller]")]
+    [Authorize]
     public class GraphQLController : Controller
     {
         private readonly IDocumentExecuter _documentExecuter;
@@ -24,16 +24,18 @@ namespace Nursry.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] GraphQLQuery query)
         {
+
             if (query == null) { throw new ArgumentNullException(nameof(query)); }
-            var inputs = query.Variables.ToInputs();
-            var executionOptions = new ExecutionOptions
+            Inputs inputs = query.Variables.ToInputs();
+            ExecutionOptions executionOptions = new ExecutionOptions
             {
                 Schema = _schema,
                 Query = query.Query,
                 Inputs = inputs
             };
+            executionOptions.UserContext = HttpContext.User;
 
-            var result = await _documentExecuter.ExecuteAsync(executionOptions).ConfigureAwait(false);
+            ExecutionResult result = await _documentExecuter.ExecuteAsync(executionOptions).ConfigureAwait(false);
 
             if (result.Errors?.Count > 0)
             {
