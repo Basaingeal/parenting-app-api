@@ -19,9 +19,16 @@ namespace Nursry.Web.GraphQL.Types
             Field(l => l.UserId).Description("The user ID of the owner of the log");
             Field(l => l.Details, nullable: true).Description("Additional details from the creator of the log");
             Field<ChildType>(
-                "child",
-                resolve: ctx => childRepo.GetByIdAsync(ctx.Source.Child.Id),
-                description: "The child that was fed.");
+                 "child",
+                 resolve: ctx =>
+                 {
+                     if (ctx.Source.Child != null)
+                     {
+                         return ctx.Source.Child;
+                     }
+                     return childRepo.GetByIdAsync(ctx.Source.Child.Id);
+                 },
+                 description: "The child that was fed.");
             Field<DateTimeGraphType>("timeOfDiaperChange",
                 resolve: ctx => ctx.Source.TimeOfDiaperChange,
                 description: "When the diaper change occured.");

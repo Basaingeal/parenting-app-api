@@ -63,7 +63,7 @@ namespace Nursry.Web
 
         private static void ConfigureGraphQL(IServiceCollection services)
         {
-            services.AddSingleton<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
+            //services.AddSingleton<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
 
             services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
             services.AddSingleton<IDocumentWriter, DocumentWriter>();
@@ -80,8 +80,13 @@ namespace Nursry.Web
             services.AddSingleton<GenderEnumType>();
 
             services.AddSingleton<GuidGraphType>();
+            services.AddSingleton<EnumerationGraphType<Gender>>();
+            services.AddSingleton<EnumerationGraphType>();
 
-            services.AddSingleton<ISchema, NursrySchema>();
+            var sp = services.BuildServiceProvider();
+
+            services.AddSingleton<ISchema>(new NursrySchema(new FuncDependencyResolver(sp.GetService)));
+            //services.AddSingleton<ISchema>(s => new NursrySchema(new FuncDependencyResolver(type => (IGraphType)s.GetRequiredService(type))));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -121,7 +126,7 @@ namespace Nursry.Web
             app.UseMvc();
 
             // add http for Schema at default url /graphql
-            app.UseGraphQL<ISchema>("/graphql");
+            //app.UseGraphQL<ISchema>("/graphql");
 
             // use graphql-playground at default url /ui/playground
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions
