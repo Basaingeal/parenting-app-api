@@ -24,16 +24,15 @@ namespace Nursry.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] GraphQLQuery query)
         {
-
             if (query == null) { throw new ArgumentNullException(nameof(query)); }
             Inputs inputs = query.Variables.ToInputs();
             ExecutionOptions executionOptions = new ExecutionOptions
             {
                 Schema = _schema,
                 Query = query.Query,
-                Inputs = inputs
+                Inputs = inputs,
+                UserContext = HttpContext.User
             };
-            executionOptions.UserContext = HttpContext.User;
 
             ExecutionResult result = await _documentExecuter.ExecuteAsync(executionOptions).ConfigureAwait(false);
 

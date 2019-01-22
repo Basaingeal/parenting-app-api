@@ -6,12 +6,10 @@ using GraphQL.Types;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Nursry.Core.Entities;
 using Nursry.Core.Interfaces;
 using Nursry.Infrastructure.Data;
 using Nursry.Infrastructure.Data.Repositories;
@@ -56,6 +54,8 @@ namespace Nursry.Web
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddCors();
             ConfigureRepos(services);
 
             ConfigureGraphQL(services);
@@ -63,38 +63,32 @@ namespace Nursry.Web
 
         private static void ConfigureGraphQL(IServiceCollection services)
         {
-            //services.AddSingleton<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
+            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
 
             services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
             services.AddSingleton<IDocumentWriter, DocumentWriter>();
 
-            services.AddSingleton<NursryQuery>();
-            services.AddSingleton<NursryMutation>();
-            services.AddSingleton<LogInterface>();
-            services.AddSingleton<BottleFeedingLogType>();
-            services.AddSingleton<BreastFeedingLogType>();
-            services.AddSingleton<DiaperLogType>();
-            services.AddSingleton<ChildType>();
+            services.AddScoped<NursryQuery>();
+            services.AddScoped<NursryMutation>();
+            services.AddScoped<LogInterface>();
+            services.AddScoped<BottleFeedingLogType>();
+            services.AddScoped<BreastFeedingLogType>();
+            services.AddScoped<DiaperLogType>();
+            services.AddScoped<ChildType>();
 
-            services.AddSingleton<BottleContentEnum>();
-            services.AddSingleton<DiaperTypeEnumType>();
-            services.AddSingleton<FeedingTypeEnum>();
-            services.AddSingleton<BreastEnum>();
-            services.AddSingleton<GenderEnum>();
+            services.AddScoped<BottleContentEnum>();
+            services.AddScoped<DiaperTypeEnumType>();
+            services.AddScoped<FeedingTypeEnum>();
+            services.AddScoped<BreastEnum>();
+            services.AddScoped<GenderEnum>();
 
-            services.AddSingleton<GuidGraphType>();
-            services.AddSingleton<TimeSpanSecondsGraphType>();
-            //services.AddSingleton<EnumerationGraphType<Gender>>();
-            services.AddSingleton<EnumerationGraphType>();
+            services.AddScoped<GuidGraphType>();
+            services.AddScoped<TimeSpanSecondsGraphType>();
+            services.AddScoped<EnumerationGraphType>();
 
-            services.AddSingleton<ChildInputType>();
+            services.AddScoped<ChildInputType>();
 
-            var sp = services.BuildServiceProvider();
-
-            services.AddSingleton<ISchema>(new NursrySchema(new FuncDependencyResolver(sp.GetService)));
-            //services.AddSingleton<ISchema>(s => new NursrySchema(new FuncDependencyResolver(type => (IGraphType)s.GetRequiredService(type))));
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ISchema, NursrySchema>();
 
             services.AddGraphQL(options =>
             {
@@ -117,12 +111,25 @@ namespace Nursry.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors(builder =>
+                    builder
+                        .WithOrigins("http://nursry.lh:8080")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+
             }
             else
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                app.UseCors(builder =>
+                    builder
+                        .WithOrigins("https://nursry.app")
+                        .WithOrigins("https://www.nursry.app")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
             }
+
 
             app.UseHttpsRedirection();
 
