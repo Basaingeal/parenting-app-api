@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.WindowsAzure.Storage;
 using Nursry.Core.Interfaces;
 using Nursry.Infrastructure.Data;
 using Nursry.Infrastructure.Data.Repositories;
@@ -33,9 +34,11 @@ namespace Nursry.Web
         {
             string domain = $"https://{Configuration["Auth0:Domain"]}";
 
-            string conString = Configuration.GetConnectionString("NursryDatabase");
             services.AddDbContext<NursryContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("NursryDatabase")));
+
+            services.AddSingleton(CloudStorageAccount.Parse(Configuration["StorageConnectionString"]));
+            services.AddTransient(sp => sp.GetService<CloudStorageAccount>().CreateCloudBlobClient());
 
             services.AddAuthentication(options =>
             {
@@ -101,6 +104,8 @@ namespace Nursry.Web
         {
             services.AddTransient<IChildRepository, ChildRepository>();
             services.AddTransient<ILogRepository, LogRepository>();
+
+            services.AddTransient<IChildImageRepository, ChildImageRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
