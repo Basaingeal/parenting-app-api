@@ -11,7 +11,7 @@ namespace Nursry.Web.Util
             {
                 Stream webpStream = new MemoryStream();
                 mImage.Format = MagickFormat.WebP;
-                mImage.Settings.SetDefine(MagickFormat.WebP, "lossless", true);
+                //mImage.Settings.SetDefine(MagickFormat.WebP, "lossless", true);
                 mImage.Write(webpStream);
                 return webpStream;
             }
