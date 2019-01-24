@@ -11,7 +11,7 @@ namespace Nursry.Core.Entities
         public string LastName { get; set; }
         public DateTimeOffset DateOfBirth { get; set; }
         public Gender Gender { get; set; }
-        public string ImageUri { get; set; }
+        public bool ImageAdded { get; set; }
         public ICollection<Log> Logs { get; set; }
     }
 }

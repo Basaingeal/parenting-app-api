@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Nursry.Core.Specifications
 {
-    class UserChildrenSpecification : BaseSpecification<Child>
+    public class UserChildrenSpecification : BaseSpecification<Child>
     {
         public UserChildrenSpecification(string userId) : base(c => c.UserId == userId)
         {

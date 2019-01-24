@@ -31,7 +31,7 @@ namespace Nursry.Web.GraphQL
                 {
                     ClaimsPrincipal user = ctx.UserContext as ClaimsPrincipal;
                     string userId = user.FindFirst(ClaimTypes.NameIdentifier).Value;
-                    UserChildrenWithLogsSpecification childrenByUserId = new UserChildrenWithLogsSpecification(userId);
+                    UserChildrenSpecification childrenByUserId = new UserChildrenSpecification(userId);
                     return childRepo.ListAsync(childrenByUserId);
                 }
                 );

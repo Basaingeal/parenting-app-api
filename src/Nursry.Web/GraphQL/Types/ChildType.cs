@@ -37,6 +37,8 @@ namespace Nursry.Web.GraphQL.Types
                 "gender",
                 resolve: ctx => ctx.Source.Gender,
                 description: "The gender of the child");
+
+            Field(c => c.ImageAdded);
         }
     }
 }

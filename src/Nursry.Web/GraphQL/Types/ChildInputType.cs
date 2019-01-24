@@ -16,6 +16,7 @@ namespace Nursry.Web.GraphQL.Types
             Field<StringGraphType>("lastName", resolve: ctx => ctx.Source.LastName);
             Field<NonNullGraphType<DateTimeOffsetGraphType>>("dateOfBirth", resolve: ctx => ctx.Source.DateOfBirth);
             Field<NonNullGraphType<GenderEnum>>("gender", resolve: ctx => ctx.Source.Gender);
+            Field<BooleanGraphType>("imageAdded", resolve: ctx => ctx.Source.ImageAdded);
         }
     }
 }
