@@ -12,7 +12,6 @@ namespace Nursry.Infrastructure.Data.Repositories
     {
         public ChildRepository(NursryContext dbContext) : base(dbContext)
         {
-            var x = "hi";
         }
 
         public Task<Child> GetByIdWithLogsAsync(Guid id)

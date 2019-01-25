@@ -59,6 +59,7 @@ namespace Nursry.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddCors();
+            services.AddResponseCaching();
             ConfigureRepos(services);
 
             ConfigureGraphQL(services);
@@ -85,11 +86,12 @@ namespace Nursry.Web
             services.AddScoped<BreastEnum>();
             services.AddScoped<GenderEnum>();
 
-            services.AddScoped<GuidGraphType>();
-            services.AddScoped<TimeSpanSecondsGraphType>();
+            services.AddScoped<IdGraphType>();
+            services.AddScoped<MyTimeSpanSecondsGraphType>();
             services.AddScoped<EnumerationGraphType>();
 
             services.AddScoped<ChildInputType>();
+            services.AddScoped<BreastFeedingLogInputType>();
 
             services.AddScoped<ISchema, NursrySchema>();
 

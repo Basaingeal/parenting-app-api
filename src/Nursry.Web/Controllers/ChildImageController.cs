@@ -64,6 +64,7 @@ namespace Nursry.Web.Controllers
             }
             catch (Exception e)
             {
+                Console.Error.WriteLine(e);
                 return new BadRequestResult();
             }
         }

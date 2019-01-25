@@ -15,7 +15,7 @@ namespace Nursry.Web.GraphQL.Types
             Name = "BottleFeedingLog";
             Description = "A record of a bottle feeding that took place.";
 
-            Field<GuidGraphType>("id", description: "The id of the bottle feeding log", resolve: ctx => ctx.Source.Id);
+            Field<IdGraphType>("id", description: "The id of the bottle feeding log", resolve: ctx => ctx.Source.Id);
             Field(l => l.UserId).Description("The user ID of the owner of the log");
             Field(l => l.Details, nullable: true).Description("Additional details from the creator of the log");
             Field<ChildType>(
