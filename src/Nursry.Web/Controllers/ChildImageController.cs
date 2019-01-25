@@ -22,6 +22,7 @@ namespace Nursry.Web.Controllers
 
         // GET: ChildImage/5
         [Route("{id:guid}")]
+        [ResponseCache(Duration = 604800)]
         public async Task<ActionResult> Index(Guid id)
         {
             ChildImage image = await childImageRepo.GetByIdAsync(id);
@@ -30,6 +31,7 @@ namespace Nursry.Web.Controllers
 
         // GET: ChildImage/Png/5
         [Route("png/{id:guid}")]
+        [ResponseCache(Duration = 604800)]
         public async Task<ActionResult> Png(Guid id)
         {
             ImageConverter imageConverter = new ImageConverter();

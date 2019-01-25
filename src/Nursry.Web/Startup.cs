@@ -142,6 +142,8 @@ namespace Nursry.Web
 
             app.UseMvc();
 
+            app.UseResponseCaching();
+
             // add http for Schema at default url /graphql
             //app.UseGraphQL<ISchema>("/graphql");
 
