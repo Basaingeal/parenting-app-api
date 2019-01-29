@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using Nursry.Core.Entities.Storage;
 using Nursry.Core.Interfaces;
 using Nursry.Web.Util;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Nursry.Web.Controllers
@@ -22,11 +24,18 @@ namespace Nursry.Web.Controllers
 
         // GET: ChildImage/5
         [Route("{id:guid}")]
-        [ResponseCache(Duration = 604800)]
+        [ResponseCache(Duration = 604800, VaryByHeader = HeaderNames.Accept)]
         public async Task<ActionResult> Index(Guid id)
         {
             ChildImage image = await childImageRepo.GetByIdAsync(id);
-            return File(image.Stream, "image/webp");
+            if (RequestAcceptsWebP())
+            {
+                return File(image.Stream, "image/webp");
+            }
+            ImageConverter imageConverter = new ImageConverter();
+            Stream pngStream = imageConverter.ToPNG(image.Stream);
+            pngStream.Position = 0;
+            return File(pngStream, "image/png");
         }
 
         // GET: ChildImage/Png/5
@@ -67,6 +76,16 @@ namespace Nursry.Web.Controllers
                 Console.Error.WriteLine(e);
                 return new BadRequestResult();
             }
+        }
+
+        private bool RequestAcceptsWebP()
+        {
+            var listOfAcceptHeaders = Request.Headers[HeaderNames.Accept].ToList();
+            if(listOfAcceptHeaders.Count == 0)
+            {
+                return false;
+            }
+            return listOfAcceptHeaders[0].Contains("image/webp");
         }
     }
 }
