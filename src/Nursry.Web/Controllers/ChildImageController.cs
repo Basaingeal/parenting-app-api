@@ -50,6 +50,16 @@ namespace Nursry.Web.Controllers
             return File(pngStream, "image/png");
         }
 
+        // GET: ChildImage/webp/5
+        [Route("webp/{id:guid}")]
+        [ResponseCache(Duration = 604800)]
+        public async Task<ActionResult> WebP(Guid id)
+        {
+            ChildImage image = await childImageRepo.GetByIdAsync(id);
+            image.Stream.Position = 0;
+            return File(image.Stream, "image/webp");
+        }
+
         // POST: ChildImage/
         [HttpPost]
         [Authorize]
