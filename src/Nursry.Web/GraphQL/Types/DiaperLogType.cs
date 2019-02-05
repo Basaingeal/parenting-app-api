@@ -36,6 +36,10 @@ namespace Nursry.Web.GraphQL.Types
                 resolve: ctx => ctx.Source.DiaperType,
                 description: "The type of diaper change performed.");
 
+            Field<DateTimeGraphType>("dateAdded",
+                description: "The date the diaper log was added",
+                resolve: ctx => ctx.Source.DateAdded);
+
             Interface<LogInterface>();
         }
     }

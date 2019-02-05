@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Nursry.Core.Entities;
 using Nursry.Core.SharedKernel;
+using System;
 using System.Linq;
 
 namespace Nursry.Infrastructure.Data
@@ -26,8 +27,22 @@ namespace Nursry.Infrastructure.Data
                 modelBuilder.Entity(entityType.ClrType)
                     .Property(nameof(BaseEntity.Id))
                     .ValueGeneratedOnAdd()
-                    .HasDefaultValueSql("newsequentialid()");
+                    .HasDefaultValueSql("NEWSEQUENTIALID()");
             }
+
+            foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes()
+                .Where(e => typeof(Log).IsAssignableFrom(e.ClrType)))
+            {
+                modelBuilder.Entity(entityType.ClrType)
+                    .Property(nameof(Log.DateAdded))
+                    .ValueGeneratedOnAdd()
+                    .HasDefaultValueSql("SYSUTCDATETIME()");
+            }
+
+            modelBuilder.Entity<Child>()
+                .Property(c => c.DateAdded)
+                .ValueGeneratedOnAdd()
+                .HasDefaultValueSql("SYSUTCDATETIME()");
 
             modelBuilder.Entity<BottleFeedingLog>().Property(fl => fl.Amount).HasColumnType("decimal(8, 5)");
         }

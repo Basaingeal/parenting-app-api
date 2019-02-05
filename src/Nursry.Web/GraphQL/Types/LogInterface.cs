@@ -17,6 +17,7 @@ namespace Nursry.Web.GraphQL.Types
             Field(l => l.UserId).Description("The user ID of the owner of the log");
             Field(l => l.Details, nullable: true).Description("Additional details from the creator of the log");
             Field<ChildType>("child");
+            Field<DateTimeGraphType>("dateAdded", description: "The date the log was added", resolve: ctx => ctx.Source.DateAdded);
         }
     }
 }

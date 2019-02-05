@@ -43,6 +43,10 @@ namespace Nursry.Web.GraphQL.Types
                 resolve: ctx => ctx.Source.LastBreastUsed,
                 description: "Which breast was used last in the feeding.");
 
+            Field<DateTimeGraphType>("dateAdded",
+                description: "The date the breast feeding log was added",
+                resolve: ctx => ctx.Source.DateAdded);
+
             Interface<LogInterface>();
         }
     }

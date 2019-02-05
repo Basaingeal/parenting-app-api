@@ -39,6 +39,10 @@ namespace Nursry.Web.GraphQL.Types
                 resolve: ctx => ctx.Source.Contents,
                 description: "What was fed in the bottle.");
 
+            Field<DateTimeGraphType>("dateAdded",
+                description: "The date the bottle feeding log was added",
+                resolve: ctx => ctx.Source.DateAdded);
+
             Interface<LogInterface>();
         }
     }

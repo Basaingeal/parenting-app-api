@@ -2,6 +2,7 @@
 using Nursry.Core.Entities;
 using Nursry.Core.Interfaces;
 using Nursry.Core.Specifications;
+using System.Linq;
 
 namespace Nursry.Web.GraphQL.Types
 {
@@ -22,10 +23,10 @@ namespace Nursry.Web.GraphQL.Types
                 {
                     if (ctx.Source.Logs?.Count > 0)
                     {
-                        return ctx.Source.Logs;
+                        return ctx.Source.Logs.OrderByDescending(l => l.DateAdded);
                     }
                     LogsByChildId getChildLogsSpec = new LogsByChildId(ctx.Source.Id);
-                    return await logRepo.ListAsync(getChildLogsSpec);
+                    return (await logRepo.ListAsync(getChildLogsSpec)).OrderByDescending(l => l.DateAdded);
                 });
 
             Field<DateTimeOffsetGraphType>(
@@ -37,6 +38,10 @@ namespace Nursry.Web.GraphQL.Types
                 "gender",
                 resolve: ctx => ctx.Source.Gender,
                 description: "The gender of the child");
+
+            Field<DateTimeGraphType>("dateAdded",
+                description: "The date the child was added",
+                resolve: ctx => ctx.Source.DateAdded);
 
             Field(c => c.ImageAdded);
         }

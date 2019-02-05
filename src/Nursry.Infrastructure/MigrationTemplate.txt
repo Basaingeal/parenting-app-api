@@ -1,1 +1,1 @@
-﻿dotnet ef migrations add RemoveBFEndTime --context nursrycontext -p ../Nursry.Infrastructure/Nursry.Infrastructure.csproj -s Nursry.Web.csproj -o Data/Migrations
+﻿dotnet ef migrations add TrackDates --context nursrycontext -p ../Nursry.Infrastructure/Nursry.Infrastructure.csproj -s Nursry.Web.csproj -o Data/Migrations

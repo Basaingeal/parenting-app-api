@@ -10,6 +10,7 @@ namespace Nursry.Web.GraphQL.Types
         {
             Name = "BreastFeedingLogInput";
             Field<StringGraphType>("details", resolve: ctx => ctx.Source.Details);
+            Field<IdGraphType>("id", resolve: ctx => ctx.Source.Id);
             Field<NonNullGraphType<IdGraphType>>("childId", resolve: ctx => ctx.Source.ChildId);
             Field<NonNullGraphType<DateTimeOffsetGraphType>>("startTime", resolve: ctx => ctx.Source.StartTime);
             Field<NonNullGraphType<MyTimeSpanSecondsGraphType>>("leftBreastDuration", resolve: ctx => ctx.Source.LeftBreastDuration);
