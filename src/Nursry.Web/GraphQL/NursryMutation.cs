@@ -3,6 +3,7 @@ using Nursry.Core.Entities;
 using Nursry.Core.Enums;
 using Nursry.Core.Interfaces;
 using Nursry.Web.GraphQL.Types;
+using System;
 using System.Security.Claims;
 
 namespace Nursry.Web.GraphQL
@@ -64,7 +65,26 @@ namespace Nursry.Web.GraphQL
                     logFromRepo.LeftBreastDuration = inputLog.LeftBreastDuration;
                     logFromRepo.RightBreastDuration = inputLog.RightBreastDuration;
                     logFromRepo.StartTime = inputLog.StartTime;
-                    return logRepo.UpdateAsync(logFromRepo);
+                    return await logRepo.UpdateAsync(logFromRepo);
+                });
+
+            FieldAsync<IdGraphType>(
+                "deleteLog",
+                arguments: new QueryArguments(
+                    new QueryArgument<NonNullGraphType<IdGraphType>> { Name = "logId" }
+                    ),
+                resolve: async ctx =>
+                {
+                    var user = ctx.UserContext as ClaimsPrincipal;
+                    Guid logId = ctx.GetArgument<Guid>("logId");
+                    string userId = user.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    Log logFromRepo = await logRepo.GetByIdAsync(logId);
+                    if (userId != logFromRepo.UserId)
+                    {
+                        return null;
+                    }
+                    await logRepo.DeleteAsync(logFromRepo);
+                    return logId;
                 });
         }
     }

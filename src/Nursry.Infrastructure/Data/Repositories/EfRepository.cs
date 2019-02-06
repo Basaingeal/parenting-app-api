@@ -52,10 +52,11 @@ namespace Nursry.Infrastructure.Data.Repositories
             return ApplySpecification(spec).ToListAsync();
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task<T> UpdateAsync(T entity)
         {
             this.nursryContext.Entry(entity).State = EntityState.Modified;
             await this.nursryContext.SaveChangesAsync();
+            return entity;
         }
 
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
