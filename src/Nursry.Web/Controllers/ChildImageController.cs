@@ -38,8 +38,8 @@ namespace Nursry.Web.Controllers
             return File(pngStream, "image/png");
         }
 
-        // GET: ChildImage/Png/5
-        [Route("png/{id:guid}")]
+        // GET: ChildImage/5.png
+        [Route("{id:guid}.png")]
         [ResponseCache(Duration = 604800)]
         public async Task<ActionResult> Png(Guid id)
         {
@@ -50,8 +50,8 @@ namespace Nursry.Web.Controllers
             return File(pngStream, "image/png");
         }
 
-        // GET: ChildImage/webp/5
-        [Route("webp/{id:guid}")]
+        // GET: ChildImage/5.webp
+        [Route("{id:guid}.webp")]
         [ResponseCache(Duration = 604800)]
         public async Task<ActionResult> WebP(Guid id)
         {
