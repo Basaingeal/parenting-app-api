@@ -74,24 +74,31 @@ namespace Nursry.Web
 
             services.AddScoped<NursryQuery>();
             services.AddScoped<NursryMutation>();
+
+            // Entity Types
             services.AddScoped<LogInterface>();
             services.AddScoped<BottleFeedingLogType>();
             services.AddScoped<BreastFeedingLogType>();
             services.AddScoped<DiaperLogType>();
             services.AddScoped<ChildType>();
-
+            services.AddScoped<UserProfileType>();
+            
+            // Enum Types
             services.AddScoped<BottleContentEnum>();
             services.AddScoped<DiaperTypeEnumType>();
             services.AddScoped<FeedingTypeEnum>();
             services.AddScoped<BreastEnum>();
             services.AddScoped<GenderEnum>();
+            services.AddScoped<UnitSystemEnum>();
 
             services.AddScoped<IdGraphType>();
             services.AddScoped<MyTimeSpanSecondsGraphType>();
             services.AddScoped<EnumerationGraphType>();
 
+            // Input types
             services.AddScoped<ChildInputType>();
             services.AddScoped<BreastFeedingLogInputType>();
+            services.AddScoped<UserProfileInputType>();
 
             services.AddScoped<ISchema, NursrySchema>();
 

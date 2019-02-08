@@ -13,7 +13,7 @@ namespace Nursry.Web.GraphQL
 {
     public class NursryQuery : ObjectGraphType<object>
     {
-        public NursryQuery(IChildRepository childRepo)
+        public NursryQuery(IChildRepository childRepo, IAsyncRepository<UserProfile> userProfileRepo)
         {
             Name = "Query";
 
@@ -66,6 +66,16 @@ namespace Nursry.Web.GraphQL
                         return null;
                     }
                     return child;
+                }
+                );
+            FieldAsync<UserProfileType>(
+                "userProfile",
+                resolve: async ctx =>
+                {
+                    ClaimsPrincipal user = ctx.UserContext as ClaimsPrincipal;
+                    string userId = user.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    UserProfileByUserIdSpecification userProfileByUserId = new UserProfileByUserIdSpecification(userId);
+                    return (await userProfileRepo.ListAsync(userProfileByUserId)).FirstOrDefault();
                 }
                 );
         }
