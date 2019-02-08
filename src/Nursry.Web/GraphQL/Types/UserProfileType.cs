@@ -20,6 +20,10 @@ namespace Nursry.Web.GraphQL.Types
                 "preferredUnitSystem",
                 description: "The user's preferred system of measurment.",
                 resolve: ctx => ctx.Source.PreferredUnitSystem);
+            Field<DateTimeGraphType>(
+                "dateAdded",
+                description: "The date the profile was added to the system.",
+                resolve: ctx => ctx.Source.DateAdded);
         }
     }
 }
