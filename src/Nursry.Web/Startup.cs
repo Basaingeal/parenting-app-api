@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAzure.Storage;
+using Nursry.Core.Entities;
 using Nursry.Core.Interfaces;
 using Nursry.Infrastructure.Data;
 using Nursry.Infrastructure.Data.Repositories;
@@ -115,6 +116,7 @@ namespace Nursry.Web
             services.AddTransient<ILogRepository, LogRepository>();
 
             services.AddTransient<IChildImageRepository, ChildImageRepository>();
+            services.AddTransient<IAsyncRepository<UserProfile>, EfRepository<UserProfile>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
